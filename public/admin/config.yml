@@ -1,0 +1,72 @@
+backend:
+  name: github
+  repo: bhaibhaicollection777-a11y/wholesale-haven
+  branch: main
+  # Use a Personal Access Token instead of OAuth (no redirects)
+  auth_type: pkce
+  app_id: not-used
+
+# Where uploaded images live (served at /uploads/...)
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+publish_mode: simple
+show_preview_links: false
+
+collections:
+  - name: "products"
+    label: "Products"
+    label_singular: "Product"
+    folder: "src/content/products"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    summary: "{{name}} — Rs. {{price}}"
+    sortable_fields: ["order", "name", "price"]
+    view_filters:
+      - label: "In stock"
+        field: outOfStock
+        pattern: false
+      - label: "Out of stock"
+        field: outOfStock
+        pattern: true
+    fields:
+      - { name: "name", label: "Product Name", widget: "string" }
+      - {
+          name: "category",
+          label: "Category",
+          widget: "select",
+          options: ["Lawn", "Embroidered", "Bridal", "Party Wear", "Pret", "Luxury Pret", "Formal"],
+          default: "Lawn"
+        }
+      - { name: "price", label: "Price (Rs.)", widget: "string", hint: "Wholesale rate, e.g. 2400" }
+      - {
+          name: "salePrice",
+          label: "Sale Price (Rs.) — optional",
+          widget: "string",
+          required: false,
+          hint: "Leave empty if no discount"
+        }
+      - { name: "moq", label: "Minimum Order Quantity", widget: "string", default: "MOQ 12 pcs" }
+      - { name: "image", label: "Product Image", widget: "image" }
+      - {
+          name: "description",
+          label: "Description",
+          widget: "text",
+          required: false,
+          hint: "Short product details (fabric, colour, etc.)"
+        }
+      - {
+          name: "outOfStock",
+          label: "Out of stock",
+          widget: "boolean",
+          default: false
+        }
+      - {
+          name: "order",
+          label: "Display order",
+          widget: "number",
+          default: 0,
+          value_type: "int",
+          hint: "Lower numbers show first"
+        }

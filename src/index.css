@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Jost:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Noor Wholesale — Elegant Pakistani Ladies Wholesale design system
+   All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 36 33% 97%;
+    --foreground: 25 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 25 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 25% 15%;
+
+    /* Deep rose / maroon brand */
+    --primary: 350 55% 32%;
+    --primary-foreground: 36 33% 97%;
+    --primary-glow: 350 60% 45%;
+
+    /* Soft blush */
+    --secondary: 20 35% 92%;
+    --secondary-foreground: 350 55% 32%;
+
+    --muted: 30 20% 94%;
+    --muted-foreground: 25 15% 40%;
+
+    /* Gold accent */
+    --accent: 38 55% 52%;
+    --accent-foreground: 25 25% 15%;
+    --accent-soft: 38 70% 88%;
+
+    --destructive: 0 75% 45%;
+    --destructive-foreground: 36 33% 97%;
+
+    --border: 30 20% 88%;
+    --input: 30 20% 88%;
+    --ring: 350 55% 32%;
+
+    --radius: 0.25rem;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(20 35% 92%) 0%, hsl(36 33% 97%) 50%, hsl(38 70% 95%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(38 55% 52%), hsl(38 70% 65%));
+    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(25 25% 15% / 0.6) 100%);
+
+    /* Shadows */
+    --shadow-elegant: 0 20px 60px -20px hsl(350 55% 32% / 0.25);
+    --shadow-soft: 0 4px 20px -4px hsl(25 25% 15% / 0.08);
+    --shadow-card: 0 2px 12px hsl(25 25% 15% / 0.06);
+
+    /* Transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Jost', sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .font-body {
+    font-family: 'Jost', sans-serif;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  .gradient-gold {
+    background: var(--gradient-gold);
+  }
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.animate-fade-up {
+  animation: fade-up 0.8s ease-out both;
+}
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}

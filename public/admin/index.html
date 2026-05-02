@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Sasti Collection — Admin</title>
+    <style>
+      body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      #gate {
+        position: fixed; inset: 0; background: #0f172a; color: #fff;
+        display: flex; align-items: center; justify-content: center; z-index: 9999;
+      }
+      #gate .card {
+        background: #1e293b; padding: 32px; border-radius: 12px;
+        width: 92%; max-width: 380px; box-shadow: 0 10px 40px rgba(0,0,0,.5);
+      }
+      #gate h1 { margin: 0 0 8px; font-size: 22px; }
+      #gate p { margin: 0 0 20px; color: #94a3b8; font-size: 14px; line-height: 1.5; }
+      #gate label { display:block; font-size: 13px; margin: 12px 0 6px; color:#cbd5e1; }
+      #gate input {
+        width: 100%; box-sizing: border-box; padding: 10px 12px;
+        border-radius: 8px; border: 1px solid #334155; background:#0f172a; color:#fff;
+        font-size: 14px;
+      }
+      #gate button {
+        margin-top: 18px; width: 100%; padding: 11px; border:0; border-radius: 8px;
+        background: #ec4899; color:#fff; font-weight:600; cursor:pointer; font-size: 15px;
+      }
+      #gate button:hover { background: #db2777; }
+      #gate .err { color:#fca5a5; font-size: 13px; margin-top: 10px; min-height: 18px; }
+      #gate .hint { font-size: 12px; color:#64748b; margin-top: 16px; line-height:1.5; }
+      #gate a { color:#60a5fa; }
+    </style>
+  </head>
+  <body>
+    <div id="gate">
+      <form class="card" id="gateForm" autocomplete="off">
+        <h1>Sasti Collection Admin</h1>
+        <p>Enter your admin password to manage products.</p>
+        <label for="pw">Password</label>
+        <input id="pw" type="password" autofocus required />
+        <label for="tok">GitHub Token <span style="color:#64748b;font-weight:normal">(first time only)</span></label>
+        <input id="tok" type="password" placeholder="ghp_..." />
+        <button type="submit">Enter Admin</button>
+        <div class="err" id="err"></div>
+        <div class="hint">
+          GitHub token is saved in this browser only. Create one at
+          <a href="https://github.com/settings/tokens/new?scopes=repo&description=Sasti%20Admin" target="_blank">github.com/settings/tokens</a>
+          (scope: <b>repo</b>).
+        </div>
+      </form>
+    </div>
+
+    <script>
+      // ⚠️ CHANGE THIS PASSWORD to whatever you want.
+      const ADMIN_PASSWORD = "sasti2025";
+
+      const form = document.getElementById("gateForm");
+      const err = document.getElementById("err");
+      const pwInput = document.getElementById("pw");
+      const tokInput = document.getElementById("tok");
+
+      // Pre-fill saved token
+      const savedToken = localStorage.getItem("sasti_gh_token") || "";
+      if (savedToken) tokInput.value = savedToken;
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        err.textContent = "";
+
+        if (pwInput.value !== ADMIN_PASSWORD) {
+          err.textContent = "Wrong password.";
+          return;
+        }
+        const token = tokInput.value.trim();
+        if (!token && !savedToken) {
+          err.textContent = "Please paste your GitHub token (first time only).";
+          return;
+        }
+        if (token) localStorage.setItem("sasti_gh_token", token);
+
+        loadCMS();
+      });
+
+      function loadCMS() {
+        const token = localStorage.getItem("sasti_gh_token");
+
+        // Pre-seed Decap's auth store with the GitHub token so it skips OAuth
+        const user = {
+          backendName: "github",
+          token: token,
+          login: "admin",
+          name: "Admin",
+        };
+        localStorage.setItem("decap-cms-user", JSON.stringify(user));
+        localStorage.setItem("netlify-cms-user", JSON.stringify(user));
+
+        // Hide gate & load Decap CMS
+        document.getElementById("gate").style.display = "none";
+
+        const s = document.createElement("script");
+        s.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
+        document.body.appendChild(s);
+      }
+    </script>
+  </body>
+</html>
