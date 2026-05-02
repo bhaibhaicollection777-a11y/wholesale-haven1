@@ -89,7 +89,7 @@ export const Collection = () => {
                     <div className="absolute inset-x-3 bottom-3 flex gap-2">
                       <button
                         onClick={() => addToCart(p)}
-                        className="flex-1 bg-primary text-primary-foreground text-xs tracking-[0.2em] uppercase py-2 text-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-smooth"
+                        className="flex-1 bg-primary text-primary-foreground text-xs tracking-[0.2em] uppercase py-2 text-center opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-2 md:group-hover:translate-y-0 transition-smooth"
                       >
                         Add to Cart
                       </button>
@@ -98,7 +98,7 @@ export const Collection = () => {
                           setSelectedProduct(p);
                           setCheckoutOpen(true);
                         }}
-                        className="flex-1 bg-accent text-accent-foreground text-xs tracking-[0.2em] uppercase py-2 text-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-smooth flex items-center justify-center gap-1"
+                        className="flex-1 bg-accent text-accent-foreground text-xs tracking-[0.2em] uppercase py-2 text-center opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-2 md:group-hover:translate-y-0 transition-smooth flex items-center justify-center gap-1"
                       >
                         <ShoppingCart className="w-3 h-3" />
                         Order Now
